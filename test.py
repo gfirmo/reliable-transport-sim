@@ -2,15 +2,16 @@ from streamer import Streamer
 import sys
 import lossy_socket
 
-NUMS=1000
+NUMS=100
 
 
 def receive(s):
+    print("Switched to Reciever")
     expected = 0
     str_buf = ""
     while expected < NUMS:
         data = s.recv()
-        print("recv returned {%s}" % data.decode('utf-8'))
+        #print("recv returned {%s}" % data.decode('utf-8'))
         str_buf += data.decode('utf-8')
         for t in str_buf.split(" "):
             if len(t) == 0:
@@ -63,7 +64,7 @@ def host2(listen_port, remote_port):
 
 
 def main():
-    lossy_socket.sim = lossy_socket.SimulationParams(loss_rate=0.0, corruption_rate=0.0,
+    lossy_socket.sim = lossy_socket.SimulationParams(loss_rate=0.1, corruption_rate=0.1,
                                                      max_delivery_delay=0.1,
                                                      become_reliable_after=100000.0)
 
